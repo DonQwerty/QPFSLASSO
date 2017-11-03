@@ -1,0 +1,12 @@
+Package: QPFSLASSO
+Type: Package
+Title: QPFSLASSO, specific gene selector for multiple conditions
+Version: 1.0
+Date: 2017-10-19
+Author: Daniel Gimenez LLorente
+Maintainer: Daniel Gimenez LLorente <gimenez767@gmail.com>
+Description: QPFSLASSO, Specific Gene Selector for multiple conditions. It combines Quadratic Programming Feature Selection algorithm with LASSO regularization, selecting those genes which are specific for each one of the multiple conditions.
+License: GPL-3
+Depends: dplyr, doMC, stringr, data.table, pbapply, entropy, edgeR, TCC, ggplot2, ballgown, quadprog
+
+
