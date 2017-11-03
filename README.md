@@ -30,3 +30,11 @@ The follow packeges are needed for executing QPFSLASSO:
 * ggplot2
 * ballgown
 * quadprog
+
+### Example
+```R
+library(QPFSLASSO)
+data(genes)
+weights<-QPFSLASSO(genes,"type","control")
+plot(weights)
+```

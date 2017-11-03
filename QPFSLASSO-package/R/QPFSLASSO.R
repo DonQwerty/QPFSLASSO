@@ -1,21 +1,22 @@
 QPFSLASSO <-
-function(x,lab,cont,lambda=0.01,object=FALSE,class=NULL,lengths=NULL,threshold=NULL){
+function(x,lab,cont,lambda=0.01,object=TRUE,class=NULL,lengths=NULL,threshold=NULL){
     library(data.table)
     print("Normalizing...")
     genes<-names(x)[1:(ncol(x)-2)]
     
     if(!is.null(lengths))
       x[1:nrow(x),1:(ncol(x)-2)]<-t(rpkm(t(x[1:nrow(x),1:(ncol(x)-2)]),lengths[as.character(genes)]))
-    x<-data.table(x)
+    
     
     genes_int<-paste("G",seq(1:length(genes)),sep="_")
     names(genes)<-genes_int
     names(x)[1:(ncol(x)-2)]<-genes_int
-    condition<-x[,lab,with=FALSE]$a
+    condition<-x[,lab]
     names(x)[which(names(x)==lab)]<-"condition"
-    control<-x[,cont,with=FALSE]$a
+    control<-x[,cont]
     names(x)[which(names(x)==cont)]<-"control"
     print("Calculating medians...")
+    x<-data.table(x)
     summary<-.getSummary(x)
     
     print("Obtaining the alpha...")
