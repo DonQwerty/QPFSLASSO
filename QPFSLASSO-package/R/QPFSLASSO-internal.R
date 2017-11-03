@@ -220,4 +220,4 @@ function(x){
     data<-data[order(data$condition,-data$w),]
     class(data)<-"QPFS_LASSO"
     return(data)
-  }
+}

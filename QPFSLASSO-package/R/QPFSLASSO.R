@@ -1,6 +1,5 @@
 QPFSLASSO <-
 function(x,lab,cont,lambda=0.01,object=TRUE,class=NULL,lengths=NULL,threshold=NULL){
-    library(data.table)
     print("Normalizing...")
     genes<-names(x)[1:(ncol(x)-2)]
     
@@ -24,10 +23,10 @@ function(x,lab,cont,lambda=0.01,object=TRUE,class=NULL,lengths=NULL,threshold=NU
     print("Calculating weights...")
     no_cores <- detectCores() - 1
     cl <- makeCluster(no_cores)
-    if(!is.vector(lambda))
+    if(length(lambda)==1){
     pesos<-unlist(pblapply(genes_int,FUN=.get_weight,summary=summary,conditions=as.character(unique(condition)),
                     genes=genes,f1=.fill_mat,f2=.fill_vector,f3=solve.QP,entropy=entropy,alpha=alpha,lambda=lambda,cl = cl))
-    else{
+    } else{
       pesos<-list()
       for(i in lambda){
         p<-unlist(pblapply(genes_int,FUN=.get_weight,summary=summary,conditions=as.character(unique(condition)),
@@ -47,7 +46,7 @@ function(x,lab,cont,lambda=0.01,object=TRUE,class=NULL,lengths=NULL,threshold=NU
     # if(!is.null(threshold)){
     #   pesos<-pesos[pesos>threshold]
     # }
-    if(object)
+    if(object & length(lambda)==1)
       return(.sort_conditions(pesos))
     return(pesos)
   }
