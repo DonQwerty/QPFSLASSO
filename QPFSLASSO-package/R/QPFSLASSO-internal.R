@@ -215,8 +215,8 @@ function(g,summary,conditions,genes,f1,f2,entropy){
 function(x){
     n<-names(x)
     data<-data.frame(w=x)
-    data$condition<-sapply(n,FUN=function(x){strslit(x,"_")[[1]][2]})
-    data$gen<-sapply(n,FUN=function(x){strslit(x,"_")[[1]][1]})
+    data$condition<-sapply(n,FUN=function(x){strsplit(x,"_")[[1]][2]})
+    data$gen<-sapply(n,FUN=function(x){strsplit(x,"_")[[1]][1]})
     data<-data[order(data$condition,-data$w),]
     class(data)<-"QPFS_LASSO"
     return(data)
